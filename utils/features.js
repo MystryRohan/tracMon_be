@@ -8,6 +8,8 @@ export const createCookie = (req, res, user, message) => {
     .cookie("logged", token, {
       expires: new Date(Date.now() + 9000000),
       httpOnly: true,
+      sameSite: process.env.MODE === "Dev" ? "lax" : "none",
+      secure: process.env.MODE === "Dev" ? false : true,
     })
     .json({
       success: true,
